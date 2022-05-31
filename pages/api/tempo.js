@@ -6,6 +6,8 @@ async function tempo(request, response) {
     const SubscribersResponseJson = await SubscribersResponse.json()
     const inscritos = SubscribersResponseJson.total_subscribers
 
+    response.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
+
     response.json({
         date: dynamicDate.toGMTString(),
         inscritos: inscritos
