@@ -1,9 +1,17 @@
-function tempo(request, response) {
+async function tempo(request, response) {
+    const apiSecret = process.env.CONVERTKIT_API_SECRET
     const dynamicDate = new Date();
 
+    const SubscribersResponse = await fetch(`https://api.convertkit.com/v3/subscribers?api_secret=${apiSecret}`)
+    const SubscribersResponseJson = await SubscribersResponse.json()
+    const inscritos = SubscribersResponseJson.total_subscribers
+
     response.json({
-        date: dynamicDate.toGMTString()
+        date: dynamicDate.toGMTString(),
+        inscritos: inscritos
     })
 }
 
 export default tempo;
+
+// vrQh-Hs-YdRjhpsxshvoBJdYRrOWpPz8nMbXmAWm0NM
